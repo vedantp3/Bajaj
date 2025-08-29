@@ -2,13 +2,13 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Your details
-FULL_NAME = "Vedant Vinod Patil"
-DOB = "17052004"  # ddmmyyyy
+
+FULL_NAME = "vedant vinod patil" 
+DOB = "17052004" 
 EMAIL = "work.vedant0505@gmail.com"
 ROLL_NUMBER = "22BCE0019"
 
-@app.route("/bfhl", methods=["POST"])
+@app.route("/bfhl", methods=["POST"])  
 def bfhl():
     try:
         data = request.get_json()
@@ -25,20 +25,20 @@ def bfhl():
         concat_alpha = []
 
         for item in arr:
-            if item.isdigit():  # Numeric
+            if item.isdigit():  
                 num = int(item)
                 total_sum += num
                 if num % 2 == 0:
                     even_numbers.append(item)
                 else:
                     odd_numbers.append(item)
-            elif item.isalpha():  # Alphabets
+            elif item.isalpha():  
                 alphabets.append(item.upper())
                 concat_alpha.append(item)
-            else:  # Special chars
+            else:  
                 special_chars.append(item)
 
-        # Build concat string: reverse + alternating caps
+       
         concat_alpha = "".join(concat_alpha)[::-1]
         alt_caps = "".join(
             ch.upper() if i % 2 == 0 else ch.lower()
@@ -47,14 +47,14 @@ def bfhl():
 
         response = {
             "is_success": True,
-            "user_id": f"{FULL_NAME}_{DOB}",
+            "user_id": f"{FULL_NAME.replace(' ', '_')}_{DOB}",  
             "email": EMAIL,
             "roll_number": ROLL_NUMBER,
             "odd_numbers": odd_numbers,
             "even_numbers": even_numbers,
             "alphabets": alphabets,
             "special_characters": special_chars,
-            "sum": str(total_sum),
+            "sum": str(total_sum),  
             "concat_string": alt_caps
         }
 
